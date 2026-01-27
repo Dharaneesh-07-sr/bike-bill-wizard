@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Wrench, Bike, Calendar, User, FileText } from "lucide-react";
-import lordMurugan from "@/assets/lord-murugan.png";
+
 
 interface PartItem {
   id: string;
@@ -97,13 +97,9 @@ const BillingForm = () => {
         </div>
 
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-4 mb-2">
-            <img src={lordMurugan} alt="Lord Murugan" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-              Kandhan Autos
-            </h1>
-            <img src={lordMurugan} alt="Lord Murugan" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
-          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-2">
+            Kandhan Autos
+          </h1>
           <p className="text-muted-foreground text-lg">
             Professional Bike Service & Repair
           </p>
