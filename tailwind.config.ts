@@ -46,6 +46,7 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          header: "hsl(var(--card-header))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -57,6 +58,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        total: "hsl(var(--total))",
+        "part-item": "hsl(var(--part-item))",
+        "part-border": "hsl(var(--part-border))",
       },
       borderRadius: {
         lg: "var(--radius)",
