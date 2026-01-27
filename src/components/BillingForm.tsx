@@ -97,9 +97,13 @@ const BillingForm = () => {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-2">
-            Kandhan Autos
-          </h1>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <Wrench className="w-10 h-10 text-primary" />
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
+              Kandhan Autos
+            </h1>
+            <Wrench className="w-10 h-10 text-primary" />
+          </div>
           <p className="text-muted-foreground text-lg">
             Professional Bike Service & Repair
           </p>
