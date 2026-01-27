@@ -89,6 +89,13 @@ const BillingForm = () => {
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
+        {/* Divine Blessing */}
+        <div className="text-center mb-4">
+          <p className="text-xl md:text-2xl font-semibold text-primary">
+            ஸ்ரீ பெரியகாண்டி அம்மன் துணை
+          </p>
+        </div>
+
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-4 mb-2">
             <img src={lordMurugan} alt="Lord Murugan" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
