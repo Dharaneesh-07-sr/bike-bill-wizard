@@ -102,6 +102,9 @@ const BillingForm = () => {
           <p className="text-primary font-semibold mt-1">
             📞 9842849933, 8903683595
           </p>
+          <p className="text-muted-foreground text-sm mt-1">
+            📍 Telephone Nagar, Moolapalayam, Erode
+          </p>
         </div>
 
         {/* Customer Details Card */}
