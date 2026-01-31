@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Wrench, Bike, Calendar, User, FileText } from "lucide-react";
+import { Wrench, Bike, Calendar, User, FileText, LogOut } from "lucide-react";
+import { toast } from "sonner";
 
 
 interface PartItem {
@@ -45,6 +46,7 @@ const initialParts: PartItem[] = [
   { id: "water_wash", label: "WATER WASH", price: 0, quantity: 0 },
   { id: "weilding", label: "WEILDING", price: 0, quantity: 0 },
   { id: "labour", label: "LABOUR", price: 0, quantity: 0 },
+  { id: "battery", label: "BATTERY", price: 0, quantity: 0 },
 ];
 
 const BillingForm = () => {
@@ -86,9 +88,27 @@ const BillingForm = () => {
     window.print();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    toast.success("Logged out successfully");
+    window.location.reload();
+  };
+
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-4xl mx-auto">
+        {/* Logout Button */}
+        <div className="flex justify-end mb-4">
+          <Button
+            variant="outline"
+            onClick={handleLogout}
+            className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          >
+            <LogOut className="w-4 h-4" />
+            Logout
+          </Button>
+        </div>
+
         {/* Header */}
         {/* Divine Blessing */}
         <div className="text-center mb-4">
