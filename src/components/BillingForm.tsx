@@ -59,6 +59,7 @@ const BillingForm = () => {
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [showMechanicProfile, setShowMechanicProfile] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -103,60 +104,117 @@ const BillingForm = () => {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Top bar - Profile & Logout */}
         <div className="flex justify-between items-center mb-4 animate-slide-up">
-          {/* Supervisor Profile Button */}
-          <div className="relative">
-            <button
-              onClick={() => setShowProfile(!showProfile)}
-              className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 pulse-badge"
-              title="Supervisor Profile"
-            >
-              A
-            </button>
+          {/* Profile Buttons */}
+          <div className="flex items-center gap-3">
+            {/* Supervisor Profile */}
+            <div className="relative">
+              <button
+                onClick={() => { setShowProfile(!showProfile); setShowMechanicProfile(false); }}
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300"
+                style={{ background: 'linear-gradient(135deg, #f97316, #ea580c)', color: 'white' }}
+                title="Supervisor Profile"
+              >
+                A
+              </button>
 
-            {/* Profile Popup */}
-            {showProfile && (
-              <div className="absolute top-14 left-0 z-50 animate-scale-fade">
-                <Card className="w-72 border-primary/30 shadow-2xl">
-                  <CardContent className="pt-5 pb-4">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold">
+              {showProfile && (
+                <div className="absolute top-14 left-0 z-50 animate-scale-fade">
+                  <Card className="w-72 shadow-2xl overflow-hidden">
+                    {/* Bright gradient header */}
+                    <div className="h-20 relative" style={{ background: 'linear-gradient(135deg, #f97316, #fb923c, #fbbf24)' }}>
+                      <div className="absolute -bottom-7 left-4">
+                        <div
+                          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-background shadow-lg"
+                          style={{ background: 'linear-gradient(135deg, #ea580c, #f97316)', color: 'white' }}
+                        >
                           A
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-foreground text-lg">A. Suresh</h3>
-                          <p className="text-xs text-primary font-medium">Supervisor</p>
                         </div>
                       </div>
                       <button
                         onClick={() => setShowProfile(false)}
-                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        className="absolute top-2 right-2 text-white/80 hover:text-white transition-colors"
                       >
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    <Separator className="mb-3" />
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <Briefcase className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                        <p className="text-sm text-muted-foreground">
-                          <span className="font-medium text-foreground">25 years</span> at TVS Pvt Ltd as a Service Manager
-                        </p>
+                    <CardContent className="pt-10 pb-4">
+                      <h3 className="font-bold text-foreground text-lg">A. Suresh</h3>
+                      <p className="text-xs text-primary font-semibold mb-3">Supervisor</p>
+                      <Separator className="mb-3" />
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                          <Briefcase className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-medium text-foreground">25 years</span> at TVS Pvt Ltd as a Service Manager
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Phone className="w-4 h-4 text-primary shrink-0" />
+                          <a href="tel:9842849933" className="text-sm font-medium text-primary hover:underline">
+                            9842849933
+                          </a>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <Phone className="w-4 h-4 text-primary shrink-0" />
-                        <a
-                          href="tel:9842849933"
-                          className="text-sm font-medium text-primary hover:underline"
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </div>
+
+            {/* Mechanic Profile */}
+            <div className="relative">
+              <button
+                onClick={() => { setShowMechanicProfile(!showMechanicProfile); setShowProfile(false); }}
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300"
+                style={{ background: 'linear-gradient(135deg, #0ea5e9, #2563eb)', color: 'white' }}
+                title="Mechanic Profile"
+              >
+                K
+              </button>
+
+              {showMechanicProfile && (
+                <div className="absolute top-14 left-0 z-50 animate-scale-fade">
+                  <Card className="w-72 shadow-2xl overflow-hidden">
+                    {/* Bright gradient header */}
+                    <div className="h-20 relative" style={{ background: 'linear-gradient(135deg, #0ea5e9, #38bdf8, #06b6d4)' }}>
+                      <div className="absolute -bottom-7 left-4">
+                        <div
+                          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-background shadow-lg"
+                          style={{ background: 'linear-gradient(135deg, #0284c7, #0ea5e9)', color: 'white' }}
                         >
-                          9842849933
-                        </a>
+                          K
+                        </div>
                       </div>
+                      <button
+                        onClick={() => setShowMechanicProfile(false)}
+                        className="absolute top-2 right-2 text-white/80 hover:text-white transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
+                    <CardContent className="pt-10 pb-4">
+                      <h3 className="font-bold text-foreground text-lg">Kandhan</h3>
+                      <p className="text-xs font-semibold mb-3" style={{ color: '#0ea5e9' }}>Mechanic</p>
+                      <Separator className="mb-3" />
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                          <Wrench className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0ea5e9' }} />
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-medium text-foreground">Expert Mechanic</span> — Bike Service & Repair Specialist
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Phone className="w-4 h-4 shrink-0" style={{ color: '#0ea5e9' }} />
+                          <a href="tel:8903683595" className="text-sm font-medium hover:underline" style={{ color: '#0ea5e9' }}>
+                            8903683595
+                          </a>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Logout Button */}
