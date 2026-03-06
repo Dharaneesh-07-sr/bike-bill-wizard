@@ -98,14 +98,14 @@ const BillingForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-background bg-pattern py-8 px-4">
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Logout Button */}
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end mb-4 animate-slide-up">
           <Button
             variant="outline"
             onClick={handleLogout}
-            className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+            className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground btn-hover-glow"
           >
             <LogOut className="w-4 h-4" />
             Logout
@@ -114,19 +114,19 @@ const BillingForm = () => {
 
         {/* Header */}
         {/* Divine Blessing */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 animate-slide-up">
           <p className="text-xl md:text-2xl font-semibold text-primary">
             ஸ்ரீ பெரியகாண்டி அம்மன் துணை
           </p>
         </div>
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 animate-slide-up-delay-1">
           <div className="flex items-center justify-center gap-3 mb-2">
-            <Wrench className="w-10 h-10 text-primary" />
+            <Wrench className="w-10 h-10 text-primary wrench-animate" />
             <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
               Sri Kandhan Autos
             </h1>
-            <Wrench className="w-10 h-10 text-primary" />
+            <Wrench className="w-10 h-10 text-primary wrench-animate" />
           </div>
           <p className="text-muted-foreground text-lg">
             Professional Bike Service & Repair
@@ -140,7 +140,7 @@ const BillingForm = () => {
         </div>
 
         {/* Customer Details Card */}
-        <Card className="mb-6 border-primary/20">
+        <Card className="mb-6 border-primary/20 card-hover animate-slide-up-delay-2">
           <CardHeader className="bg-card-header pb-4">
             <CardTitle className="flex items-center gap-2 text-xl">
               <User className="w-5 h-5 text-primary" />
@@ -206,7 +206,7 @@ const BillingForm = () => {
         </Card>
 
         {/* Parts & Services Card */}
-        <Card className="mb-6 border-primary/20">
+        <Card className="mb-6 border-primary/20 card-hover animate-slide-up-delay-3">
           <CardHeader className="bg-card-header pb-4">
             <CardTitle className="flex items-center gap-2 text-xl">
               <Wrench className="w-5 h-5 text-primary" />
@@ -222,9 +222,9 @@ const BillingForm = () => {
                     Select Parts & Services
                   </span>
                   {parts.filter(p => p.price > 0).length > 0 && (
-                    <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                      {parts.filter(p => p.price > 0).length} selected
-                    </span>
+                     <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full pulse-badge">
+                       {parts.filter(p => p.price > 0).length} selected
+                     </span>
                   )}
                 </div>
                 <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${isPartsOpen ? 'rotate-180' : ''}`} />
@@ -304,21 +304,21 @@ const BillingForm = () => {
         </Card>
 
         {/* Total Card */}
-        <Card className="border-primary/30 bg-total-card">
+        <Card className="border-primary/30 bg-total-card card-hover animate-slide-up-delay-3">
           <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <Button
                   variant="outline"
                   onClick={handleReset}
-                  className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                  className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground btn-hover-glow"
                 >
                   Reset All
                 </Button>
                 <Button
                   variant="outline"
                   onClick={handlePrint}
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
                 >
                   Print Bill
                 </Button>
@@ -328,7 +328,7 @@ const BillingForm = () => {
                 <span className="text-lg font-medium text-muted-foreground">
                   TOTAL:
                 </span>
-                <span className="text-3xl md:text-4xl font-bold text-total">
+                <span className="text-3xl md:text-4xl font-bold shimmer-text">
                   ₹{calculateTotal().toLocaleString("en-IN")}
                 </span>
               </div>
@@ -337,7 +337,7 @@ const BillingForm = () => {
         </Card>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-muted-foreground text-sm">
+        <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3">
           <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
         </div>
       </div>
