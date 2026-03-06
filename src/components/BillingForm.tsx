@@ -98,14 +98,14 @@ const BillingForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-background bg-pattern py-8 px-4">
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Logout Button */}
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end mb-4 animate-slide-up">
           <Button
             variant="outline"
             onClick={handleLogout}
-            className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+            className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground btn-hover-glow"
           >
             <LogOut className="w-4 h-4" />
             Logout
@@ -114,19 +114,19 @@ const BillingForm = () => {
 
         {/* Header */}
         {/* Divine Blessing */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 animate-slide-up">
           <p className="text-xl md:text-2xl font-semibold text-primary">
             ஸ்ரீ பெரியகாண்டி அம்மன் துணை
           </p>
         </div>
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 animate-slide-up-delay-1">
           <div className="flex items-center justify-center gap-3 mb-2">
-            <Wrench className="w-10 h-10 text-primary" />
+            <Wrench className="w-10 h-10 text-primary wrench-animate" />
             <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
               Sri Kandhan Autos
             </h1>
-            <Wrench className="w-10 h-10 text-primary" />
+            <Wrench className="w-10 h-10 text-primary wrench-animate" />
           </div>
           <p className="text-muted-foreground text-lg">
             Professional Bike Service & Repair
