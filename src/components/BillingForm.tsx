@@ -206,7 +206,7 @@ const BillingForm = () => {
         </Card>
 
         {/* Parts & Services Card */}
-        <Card className="mb-6 border-primary/20">
+        <Card className="mb-6 border-primary/20 card-hover animate-slide-up-delay-3">
           <CardHeader className="bg-card-header pb-4">
             <CardTitle className="flex items-center gap-2 text-xl">
               <Wrench className="w-5 h-5 text-primary" />
