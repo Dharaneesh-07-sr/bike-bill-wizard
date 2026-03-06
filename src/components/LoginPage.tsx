@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Wrench } from "lucide-react";
 import { toast } from "sonner";
+import bikeShopBg from "@/assets/bike-shop-bg.jpg";
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -28,8 +29,20 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background bg-pattern flex items-center justify-center p-4">
-      <Card className="w-full max-w-md card-hover animate-scale-fade relative z-10 border-primary/20 shadow-lg">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${bikeShopBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 z-0 bg-black/60 backdrop-blur-[2px]" />
+      <Card className="w-full max-w-md card-hover animate-scale-fade relative z-10 border-primary/30 shadow-2xl bg-background/90 backdrop-blur-md">
         <CardHeader className="text-center pb-2">
           <div className="flex items-center justify-center gap-3 mb-4 animate-slide-up">
             <Wrench className="w-8 h-8 text-primary wrench-animate" />
