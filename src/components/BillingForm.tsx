@@ -222,9 +222,9 @@ const BillingForm = () => {
                     Select Parts & Services
                   </span>
                   {parts.filter(p => p.price > 0).length > 0 && (
-                    <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                      {parts.filter(p => p.price > 0).length} selected
-                    </span>
+                     <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full pulse-badge">
+                       {parts.filter(p => p.price > 0).length} selected
+                     </span>
                   )}
                 </div>
                 <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${isPartsOpen ? 'rotate-180' : ''}`} />
