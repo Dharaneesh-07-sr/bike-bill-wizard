@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check } from "lucide-react";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Phone, Briefcase, X } from "lucide-react";
 import { toast } from "sonner";
 
 
@@ -58,6 +58,7 @@ const BillingForm = () => {
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
+  const [showProfile, setShowProfile] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -100,8 +101,65 @@ const BillingForm = () => {
   return (
     <div className="min-h-screen bg-background bg-pattern py-8 px-4">
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Logout Button */}
-        <div className="flex justify-end mb-4 animate-slide-up">
+        {/* Top bar - Profile & Logout */}
+        <div className="flex justify-between items-center mb-4 animate-slide-up">
+          {/* Supervisor Profile Button */}
+          <div className="relative">
+            <button
+              onClick={() => setShowProfile(!showProfile)}
+              className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300 pulse-badge"
+              title="Supervisor Profile"
+            >
+              A
+            </button>
+
+            {/* Profile Popup */}
+            {showProfile && (
+              <div className="absolute top-14 left-0 z-50 animate-scale-fade">
+                <Card className="w-72 border-primary/30 shadow-2xl">
+                  <CardContent className="pt-5 pb-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold">
+                          A
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-foreground text-lg">A. Suresh</h3>
+                          <p className="text-xs text-primary font-medium">Supervisor</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setShowProfile(false)}
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <Separator className="mb-3" />
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <Briefcase className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                        <p className="text-sm text-muted-foreground">
+                          <span className="font-medium text-foreground">25 years</span> at TVS Pvt Ltd as a Service Manager
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Phone className="w-4 h-4 text-primary shrink-0" />
+                        <a
+                          href="tel:9842849933"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          9842849933
+                        </a>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
+
+          {/* Logout Button */}
           <Button
             variant="outline"
             onClick={handleLogout}
