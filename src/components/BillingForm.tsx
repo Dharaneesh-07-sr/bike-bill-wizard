@@ -304,21 +304,21 @@ const BillingForm = () => {
         </Card>
 
         {/* Total Card */}
-        <Card className="border-primary/30 bg-total-card">
+        <Card className="border-primary/30 bg-total-card card-hover animate-slide-up-delay-3">
           <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <Button
                   variant="outline"
                   onClick={handleReset}
-                  className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                  className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground btn-hover-glow"
                 >
                   Reset All
                 </Button>
                 <Button
                   variant="outline"
                   onClick={handlePrint}
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
                 >
                   Print Bill
                 </Button>
@@ -328,7 +328,7 @@ const BillingForm = () => {
                 <span className="text-lg font-medium text-muted-foreground">
                   TOTAL:
                 </span>
-                <span className="text-3xl md:text-4xl font-bold text-total">
+                <span className="text-3xl md:text-4xl font-bold shimmer-text">
                   ₹{calculateTotal().toLocaleString("en-IN")}
                 </span>
               </div>
@@ -337,7 +337,7 @@ const BillingForm = () => {
         </Card>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-muted-foreground text-sm">
+        <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3">
           <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
         </div>
       </div>
