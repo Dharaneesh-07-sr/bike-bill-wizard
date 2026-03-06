@@ -42,7 +42,7 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
       />
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 z-0 bg-black/60 backdrop-blur-[2px]" />
-      <Card className="w-full max-w-md card-hover animate-scale-fade relative z-10 border-primary/20 shadow-lg">
+      <Card className="w-full max-w-md card-hover animate-scale-fade relative z-10 border-primary/30 shadow-2xl bg-background/90 backdrop-blur-md">
         <CardHeader className="text-center pb-2">
           <div className="flex items-center justify-center gap-3 mb-4 animate-slide-up">
             <Wrench className="w-8 h-8 text-primary wrench-animate" />
