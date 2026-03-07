@@ -150,7 +150,7 @@ const BillingForm = () => {
                 </Card>
               </div>
             </div>
-          )
+          }
 
           {/* Logout Button */}
           <Button
