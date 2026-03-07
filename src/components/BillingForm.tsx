@@ -58,8 +58,6 @@ const BillingForm = () => {
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
-  const [showProfile, setShowProfile] = useState(false);
-  const [showMechanicProfile, setShowMechanicProfile] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
