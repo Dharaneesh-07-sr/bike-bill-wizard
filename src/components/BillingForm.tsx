@@ -57,6 +57,7 @@ const BillingForm = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
 
   const handlePriceChange = (id: string, value: string) => {
