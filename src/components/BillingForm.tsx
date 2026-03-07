@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Briefcase, X } from "lucide-react";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check } from "lucide-react";
 import { toast } from "sonner";
 
 
