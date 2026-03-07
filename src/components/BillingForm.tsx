@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Briefcase, X } from "lucide-react";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check } from "lucide-react";
 import { toast } from "sonner";
 
 
@@ -57,7 +57,7 @@ const BillingForm = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
+  
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
 
   const handlePriceChange = (id: string, value: string) => {
@@ -103,55 +103,7 @@ const BillingForm = () => {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Top bar - Profile & Logout */}
         <div className="flex justify-between items-center mb-4 animate-slide-up">
-          {/* Profile Button */}
-          <div className="relative">
-            <button
-              onClick={() => setShowProfile(!showProfile)}
-              className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold shadow-lg hover:scale-110 transition-transform duration-300"
-              style={{ background: 'linear-gradient(135deg, #ec4899, #db2777)', color: 'white' }}
-              title="Mechanic Profile"
-            >
-              A
-            </button>
-
-          </div>
-
-          {showProfile && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowProfile(false)}>
-              <div className="animate-scale-fade" onClick={(e) => e.stopPropagation()}>
-                <Card className="w-80 shadow-2xl overflow-hidden">
-                  <div className="h-24 relative" style={{ background: 'linear-gradient(135deg, #ec4899, #f472b6, #f9a8d4)' }}>
-                    <div className="absolute -bottom-7 left-1/2 -translate-x-1/2">
-                      <div
-                        className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-background shadow-lg"
-                        style={{ background: 'linear-gradient(135deg, #db2777, #ec4899)', color: 'white' }}
-                      >
-                        A
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setShowProfile(false)}
-                      className="absolute top-2 right-2 text-white/80 hover:text-white transition-colors"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <CardContent className="pt-10 pb-6 text-center" style={{ background: 'linear-gradient(180deg, #fdf2f8, #fce7f3)' }}>
-                    <h3 className="font-bold text-foreground text-xl">A. Suresh</h3>
-                    <p className="text-sm font-semibold mb-4" style={{ color: '#db2777' }}>Mechanic</p>
-                    <Separator className="mb-4" />
-                    <div className="flex items-start gap-3 justify-center">
-                      <Briefcase className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ec4899' }} />
-                      <p className="text-sm text-muted-foreground">
-                        <span className="font-medium text-foreground">25 years</span> at TVS Pvt Ltd as a Service Manager
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          )}
-
+          <div></div>
           {/* Logout Button */}
           <Button
             variant="outline"
@@ -371,7 +323,7 @@ const BillingForm = () => {
                   onClick={handlePrint}
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
                 >
-                  Print Bill
+                  🖨️ Print Bill
                 </Button>
               </div>
               <Separator className="sm:hidden w-full" />
