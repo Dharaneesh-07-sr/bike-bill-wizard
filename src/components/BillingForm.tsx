@@ -323,7 +323,7 @@ const BillingForm = () => {
                   onClick={handlePrint}
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
                 >
-                  Print Bill
+                  🖨️ Print Bill
                 </Button>
               </div>
               <Separator className="sm:hidden w-full" />
