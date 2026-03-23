@@ -301,7 +301,7 @@ const BillingForm = () => {
 
             {/* Selected Parts Summary */}
             {parts.filter(p => p.price > 0).length > 0 && (
-              <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+              <div className="mt-4 p-3 bg-muted/50 rounded-lg no-print">
                 <p className="text-sm font-medium text-muted-foreground mb-2">Selected Items:</p>
                 <div className="flex flex-wrap gap-2">
                   {parts.filter(p => p.price > 0).map(part => (
