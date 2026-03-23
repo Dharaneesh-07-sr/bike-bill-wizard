@@ -351,8 +351,42 @@ const BillingForm = () => {
           </CardContent>
         </Card>
 
+        {/* Printable Parts Table - only visible when printing */}
+        <div className="print-only" style={{ display: 'none' }}>
+          <table className="print-table">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Parts Name</th>
+                <th className="text-right">Amount (₹)</th>
+                <th className="text-right">Qty</th>
+                <th className="text-right">Total (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {parts.filter(p => p.price > 0).map((part, index) => (
+                <tr key={part.id}>
+                  <td>{index + 1}</td>
+                  <td>{part.label}</td>
+                  <td className="text-right">{part.price.toLocaleString("en-IN")}</td>
+                  <td className="text-right">{part.quantity}</td>
+                  <td className="text-right">{(part.price * part.quantity).toLocaleString("en-IN")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="print-total">
+            Grand Total: ₹{calculateTotal().toLocaleString("en-IN")}
+          </div>
+          <div style={{ marginTop: '40px', textAlign: 'right' }}>
+            <p style={{ borderTop: '1px solid #000', display: 'inline-block', paddingTop: '5px' }}>
+              Sri Kandhan Autos<br />Authorized Signature
+            </p>
+          </div>
+        </div>
+
         {/* Footer */}
-        <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3">
+        <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3 no-print">
           <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
         </div>
       </div>
