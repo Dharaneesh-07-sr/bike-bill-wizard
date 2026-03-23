@@ -373,15 +373,19 @@ const BillingForm = () => {
                   <td className="text-right">{(part.price * part.quantity).toLocaleString("en-IN")}</td>
                 </tr>
               ))}
+              <tr>
+                <td colSpan={4} style={{ textAlign: 'right', fontWeight: 'bold' }}>Grand Total</td>
+                <td className="text-right" style={{ fontWeight: 'bold' }}>₹{calculateTotal().toLocaleString("en-IN")}</td>
+              </tr>
             </tbody>
           </table>
-          <div className="print-total">
-            Grand Total: ₹{calculateTotal().toLocaleString("en-IN")}
-          </div>
-          <div style={{ marginTop: '40px', textAlign: 'right' }}>
-            <p style={{ borderTop: '1px solid #000', display: 'inline-block', paddingTop: '5px' }}>
-              Sri Kandhan Autos<br />Authorized Signature
-            </p>
+          <div style={{ marginTop: '60px', textAlign: 'right', paddingRight: '20px' }}>
+            <div style={{ display: 'inline-block', textAlign: 'center', border: '1px solid #000', padding: '30px 40px 10px 40px' }}>
+              <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>A. Suresh</p>
+              <p style={{ borderTop: '1px solid #000', paddingTop: '5px', fontSize: '12px' }}>
+                Sri Kandhan Autos<br />Authorized Signature
+              </p>
+            </div>
           </div>
         </div>
 
