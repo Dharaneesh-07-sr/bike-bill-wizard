@@ -359,15 +359,16 @@
 
   .print-table th,
   .print-table td {
-    border: 1px solid #000;
+    border: 2px solid #f97316;
     padding: 6px 10px;
     text-align: left;
     font-size: 12px;
   }
 
   .print-table th {
-    background: #f0f0f0;
+    background: #fff7ed;
     font-weight: bold;
+    color: #c2410c;
   }
 
   .print-table .text-right {
