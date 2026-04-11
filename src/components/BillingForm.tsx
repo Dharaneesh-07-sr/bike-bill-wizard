@@ -19,6 +19,7 @@ interface PartItem {
 const initialParts: PartItem[] = [
   { id: "air_filter", label: "AIR FILTER", price: 0, quantity: 0 },
   { id: "battery", label: "BATTERY", price: 0, quantity: 0 },
+  { id: "bearing", label: "BEARING", price: 0, quantity: 0 },
   { id: "brake_shoe_fr", label: "BRAKE SHOE FR", price: 0, quantity: 0 },
   { id: "brake_shoe_rr", label: "BRAKE SHOE RR", price: 0, quantity: 0 },
   { id: "capater_bush", label: "CAPATER BUSH", price: 0, quantity: 0 },
