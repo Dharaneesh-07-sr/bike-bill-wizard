@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check } from "lucide-react";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X } from "lucide-react";
 import { toast } from "sonner";
 
 
@@ -91,8 +91,8 @@ const BillingForm = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
-  
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
+  const [partsSearch, setPartsSearch] = useState("");
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -267,8 +267,39 @@ const BillingForm = () => {
                 <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${isPartsOpen ? 'rotate-180' : ''}`} />
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
+                <div className="relative mb-2">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    type="text"
+                    placeholder="Search parts & services..."
+                    value={partsSearch}
+                    onChange={(e) => setPartsSearch(e.target.value)}
+                    className="pl-9 pr-9 bg-input-bg border-input-border"
+                  />
+                  {partsSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setPartsSearch("")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted text-muted-foreground"
+                      aria-label="Clear search"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
                 <div className="border border-border rounded-lg overflow-hidden max-h-80 overflow-y-auto">
-                  {parts.map((part) => (
+                  {parts.filter((part) =>
+                    part.label.toLowerCase().includes(partsSearch.toLowerCase())
+                  ).length === 0 ? (
+                    <div className="p-4 text-center text-sm text-muted-foreground">
+                      No parts found for "{partsSearch}"
+                    </div>
+                  ) : (
+                  parts
+                    .filter((part) =>
+                      part.label.toLowerCase().includes(partsSearch.toLowerCase())
+                    )
+                    .map((part) => (
                     <div
                       key={part.id}
                       className="border-b border-border last:border-b-0"
@@ -316,7 +347,7 @@ const BillingForm = () => {
                         </div>
                       )}
                     </div>
-                  ))}
+                  )))}
                 </div>
               </CollapsibleContent>
             </Collapsible>
