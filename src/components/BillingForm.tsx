@@ -70,6 +70,7 @@ const initialParts: PartItem[] = [
   { id: "rr_mat", label: "RR MAT", price: 0, quantity: 0 },
   { id: "seat_cover", label: "SEAT COVER", price: 0, quantity: 0 },
   { id: "seat_launch", label: "SEAT LAUNCH", price: 0, quantity: 0 },
+  { id: "self_switch", label: "SELF SWITCH", price: 0, quantity: 0 },
   { id: "sli_cleaning", label: "SLI CLEANING", price: 0, quantity: 0 },
   { id: "sli_gas_cut", label: "SLI GAS CUT", price: 0, quantity: 0 },
   { id: "spark_plug", label: "SPARK PLUG", price: 0, quantity: 0 },
