@@ -70,6 +70,7 @@ const initialParts: PartItem[] = [
   { id: "rr_mat", label: "RR MAT", price: 0, quantity: 0 },
   { id: "seat_cover", label: "SEAT COVER", price: 0, quantity: 0 },
   { id: "seat_launch", label: "SEAT LAUNCH", price: 0, quantity: 0 },
+  { id: "self_switch", label: "SELF SWITCH", price: 0, quantity: 0 },
   { id: "sli_cleaning", label: "SLI CLEANING", price: 0, quantity: 0 },
   { id: "sli_gas_cut", label: "SLI GAS CUT", price: 0, quantity: 0 },
   { id: "spark_plug", label: "SPARK PLUG", price: 0, quantity: 0 },
@@ -440,6 +441,10 @@ const BillingForm = () => {
               </p>
             </div>
           </div>
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <p style={{ fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px' }}>THANKS FOR CHOOSING US...!</p>
+          </div>
+        </div>
         </div>
 
         {/* Footer */}
