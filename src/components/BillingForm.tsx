@@ -441,6 +441,10 @@ const BillingForm = () => {
               </p>
             </div>
           </div>
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <p style={{ fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px' }}>THANKS FOR CHOOSING US...!</p>
+          </div>
+        </div>
         </div>
 
         {/* Footer */}
