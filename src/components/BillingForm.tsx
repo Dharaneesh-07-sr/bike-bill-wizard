@@ -17,8 +17,10 @@ interface PartItem {
 }
 
 const initialParts: PartItem[] = [
+  { id: "ac_housing", label: "AC HOUSING", price: 0, quantity: 0 },
   { id: "acc_cable", label: "ACC CABLE", price: 0, quantity: 0 },
   { id: "acc_clip", label: "ACC CLIP", price: 0, quantity: 0 },
+  { id: "acc_mount", label: "ACC MOUNT", price: 0, quantity: 0 },
   { id: "air_filter", label: "AIR FILTER", price: 0, quantity: 0 },
   { id: "battery", label: "BATTERY", price: 0, quantity: 0 },
   { id: "bearing", label: "BEARING", price: 0, quantity: 0 },
@@ -51,6 +53,7 @@ const initialParts: PartItem[] = [
   { id: "head_gas_cut", label: "HEAD GAS CUT", price: 0, quantity: 0 },
   { id: "hl_blub", label: "HL BLUB", price: 0, quantity: 0 },
   { id: "hl_holder", label: "HL HOLDER", price: 0, quantity: 0 },
+  { id: "hl_rubber", label: "HL RUBBER", price: 0, quantity: 0 },
   { id: "hl_switch", label: "HL SWITCH", price: 0, quantity: 0 },
   { id: "horn", label: "HORN", price: 0, quantity: 0 },
   { id: "hub_rubber", label: "HUB RUBBER", price: 0, quantity: 0 },
@@ -73,6 +76,7 @@ const initialParts: PartItem[] = [
   { id: "packing_kit", label: "PACKING KIT", price: 0, quantity: 0 },
   { id: "petrol", label: "PETROL", price: 0, quantity: 0 },
   { id: "petrol_tap", label: "PETROL TAP", price: 0, quantity: 0 },
+  { id: "plaser", label: "PLASER", price: 0, quantity: 0 },
   { id: "plug", label: "PLUG", price: 0, quantity: 0 },
   { id: "plug_cover", label: "PLUG COVER", price: 0, quantity: 0 },
   { id: "plug_holder", label: "PLUG HOLDER", price: 0, quantity: 0 },
@@ -86,6 +90,7 @@ const initialParts: PartItem[] = [
   { id: "sli_gas_cut", label: "SLI GAS CUT", price: 0, quantity: 0 },
   { id: "spark_plug", label: "SPARK PLUG", price: 0, quantity: 0 },
   { id: "sup_cap", label: "SUP CAP", price: 0, quantity: 0 },
+  { id: "switch", label: "SWITCH", price: 0, quantity: 0 },
   { id: "tank_cover", label: "TANK COVER", price: 0, quantity: 0 },
   { id: "tinner", label: "TINNER", price: 0, quantity: 0 },
   { id: "tool_cover", label: "TOOL COVER", price: 0, quantity: 0 },
