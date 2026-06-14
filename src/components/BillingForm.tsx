@@ -81,6 +81,7 @@ const initialParts: PartItem[] = [
   { id: "seat_cover", label: "SEAT COVER", price: 0, quantity: 0 },
   { id: "seat_launch", label: "SEAT LAUNCH", price: 0, quantity: 0 },
   { id: "self_switch", label: "SELF SWITCH", price: 0, quantity: 0 },
+  { id: "side_stand", label: "SIDE STAND", price: 0, quantity: 0 },
   { id: "sli_cleaning", label: "SLI CLEANING", price: 0, quantity: 0 },
   { id: "sli_gas_cut", label: "SLI GAS CUT", price: 0, quantity: 0 },
   { id: "spark_plug", label: "SPARK PLUG", price: 0, quantity: 0 },
