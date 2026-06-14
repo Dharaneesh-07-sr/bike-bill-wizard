@@ -26,6 +26,7 @@ const initialParts: PartItem[] = [
   { id: "brake_shoe_fr", label: "BRAKE SHOE FR", price: 0, quantity: 0 },
   { id: "brake_shoe_rr", label: "BRAKE SHOE RR", price: 0, quantity: 0 },
   { id: "capater_bush", label: "CAPATER BUSH", price: 0, quantity: 0 },
+  { id: "centre_stand", label: "CENTRE STAND", price: 0, quantity: 0 },
   { id: "chain_bolt", label: "CHAIN BOLT", price: 0, quantity: 0 },
   { id: "chain_kit", label: "CHAIN KIT", price: 0, quantity: 0 },
   { id: "clutch_bearing", label: "CLUTCH BEARING", price: 0, quantity: 0 },
