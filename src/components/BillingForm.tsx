@@ -17,6 +17,8 @@ interface PartItem {
 }
 
 const initialParts: PartItem[] = [
+  { id: "acc_cable", label: "ACC CABLE", price: 0, quantity: 0 },
+  { id: "acc_clip", label: "ACC CLIP", price: 0, quantity: 0 },
   { id: "air_filter", label: "AIR FILTER", price: 0, quantity: 0 },
   { id: "battery", label: "BATTERY", price: 0, quantity: 0 },
   { id: "bearing", label: "BEARING", price: 0, quantity: 0 },
@@ -49,6 +51,7 @@ const initialParts: PartItem[] = [
   { id: "hl_blub", label: "HL BLUB", price: 0, quantity: 0 },
   { id: "hl_holder", label: "HL HOLDER", price: 0, quantity: 0 },
   { id: "hl_switch", label: "HL SWITCH", price: 0, quantity: 0 },
+  { id: "horn", label: "HORN", price: 0, quantity: 0 },
   { id: "hub_rubber", label: "HUB RUBBER", price: 0, quantity: 0 },
   { id: "ind_blub", label: "IND BLUB", price: 0, quantity: 0 },
   { id: "ind_buzzer", label: "IND BUZZER", price: 0, quantity: 0 },
