@@ -5,7 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
 
 
@@ -110,6 +111,7 @@ const BillingForm = () => {
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [partsSearch, setPartsSearch] = useState("");
+  const [mechanicsOpen, setMechanicsOpen] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -152,9 +154,67 @@ const BillingForm = () => {
   return (
     <div className="min-h-screen bg-background bg-pattern py-8 px-4">
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Top bar - Profile & Logout */}
+        {/* Top bar - Mechanics & Logout */}
         <div className="flex justify-between items-center mb-4 animate-slide-up">
-          <div></div>
+          {/* Mechanics Button */}
+          <Sheet open={mechanicsOpen} onOpenChange={setMechanicsOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
+              >
+                <span className="text-lg">👨‍🔧</span>
+                Mechanics
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-full sm:max-w-md overflow-y-auto">
+              <SheetHeader className="pb-4 border-b border-border">
+                <SheetTitle className="flex items-center gap-2 text-2xl">
+                  <span className="text-2xl">👨‍🔧</span>
+                  Our Mechanics
+                </SheetTitle>
+              </SheetHeader>
+              <div className="mt-6 space-y-4">
+                <Card className="border-primary/20 card-hover">
+                  <CardHeader className="bg-card-header pb-4">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <User className="w-5 h-5 text-primary" />
+                      SURESH A
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-4 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <Briefcase className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Role</p>
+                        <p className="text-sm font-semibold text-foreground">Owner & Mechanic</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <Award className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Experience</p>
+                        <p className="text-sm font-semibold text-foreground">25 YEARS AS SERVICE MANAGER AT LOTUS TVS</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <Phone className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Phone</p>
+                        <p className="text-sm font-semibold text-foreground">9842849933</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </SheetContent>
+          </Sheet>
           {/* Logout Button */}
           <Button
             variant="outline"
