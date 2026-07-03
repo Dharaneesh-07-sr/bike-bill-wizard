@@ -111,6 +111,7 @@ const BillingForm = () => {
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [partsSearch, setPartsSearch] = useState("");
+  const [mechanicsOpen, setMechanicsOpen] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
