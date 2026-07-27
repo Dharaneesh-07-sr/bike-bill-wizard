@@ -48,6 +48,7 @@ const initialParts: PartItem[] = [
   { id: "flasher", label: "FLASHER", price: 0, quantity: 0 },
   { id: "foot_rest", label: "FOOT REST", price: 0, quantity: 0 },
   { id: "fork_bush", label: "FORK BUSH", price: 0, quantity: 0 },
+  { id: "fork_bend", label: "FORK BEND", price: 0, quantity: 0 },
   { id: "fork_rubber", label: "FORK RUBBER", price: 0, quantity: 0 },
   { id: "fr_mat", label: "FR MAT", price: 0, quantity: 0 },
   { id: "gear_oil", label: "GEAR OIL", price: 0, quantity: 0 },
