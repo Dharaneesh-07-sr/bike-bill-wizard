@@ -511,6 +511,13 @@ const BillingForm = () => {
                 >
                   🖨️ Print Bill
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setPosterOpen(true)}
+                  className="border-accent text-accent hover:bg-accent hover:text-accent-foreground btn-hover-glow"
+                >
+                  🔔 Reminder Poster
+                </Button>
               </div>
               <Separator className="sm:hidden w-full" />
               <div className="flex items-center gap-4">
