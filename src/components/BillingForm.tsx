@@ -116,11 +116,21 @@ const initialParts: PartItem[] = [
   { id: "wiring_kit", label: "WIRING KIT", price: 0, quantity: 0 },
 ];
 
+const addMonths = (dateStr: string, months: number) => {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return "";
+  const day = d.getDate();
+  d.setMonth(d.getMonth() + months);
+  if (d.getDate() < day) d.setDate(0); // handle month-end rollover
+  return d.toISOString().split("T")[0];
+};
+
 const BillingForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [bikeName, setBikeName] = useState("");
   const [bikeNumber, setBikeNumber] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [nextServiceDate, setNextServiceDate] = useState(() => addMonths(new Date().toISOString().split("T")[0], 3));
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
@@ -152,6 +162,7 @@ const BillingForm = () => {
     setBikeName("");
     setBikeNumber("");
     setDate(new Date().toISOString().split("T")[0]);
+    setNextServiceDate(addMonths(new Date().toISOString().split("T")[0], 3));
     setParts(initialParts);
   };
 
@@ -325,9 +336,26 @@ const BillingForm = () => {
                   id="date"
                   type="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                    setNextServiceDate(addMonths(e.target.value, 3));
+                  }}
                   className="bg-input-bg border-input-border"
                 />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="nextServiceDate" className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  Next Service Date
+                </Label>
+                <Input
+                  id="nextServiceDate"
+                  type="date"
+                  value={nextServiceDate}
+                  onChange={(e) => setNextServiceDate(e.target.value)}
+                  className="bg-input-bg border-input-border"
+                />
+                <p className="text-xs text-muted-foreground">Auto-set to 3 months after service date — editable.</p>
               </div>
             </div>
           </CardContent>
@@ -532,6 +560,9 @@ const BillingForm = () => {
             </div>
           </div>
           <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <p style={{ fontWeight: 'bold', fontSize: '14px', marginBottom: '6px' }}>
+              NEXT SERVICE DATE: {nextServiceDate ? new Date(nextServiceDate).toLocaleDateString("en-IN", { day: "2-digit", month: "2-digit", year: "numeric" }) : "-"}
+            </p>
             <p style={{ fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px' }}>THANKS FOR CHOOSING US...!</p>
           </div>
         </div>
