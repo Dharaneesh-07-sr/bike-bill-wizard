@@ -576,6 +576,13 @@ const BillingForm = () => {
           </div>
         </div>
 
+        {/* Service Reminder Poster Dialog */}
+        <ReminderPoster
+          open={posterOpen}
+          onOpenChange={setPosterOpen}
+          data={{ customerName, bikeName, bikeNumber, nextServiceDate }}
+        />
+
         {/* Footer */}
         <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3 no-print">
           <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
