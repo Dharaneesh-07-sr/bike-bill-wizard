@@ -162,6 +162,7 @@ const BillingForm = () => {
     setBikeName("");
     setBikeNumber("");
     setDate(new Date().toISOString().split("T")[0]);
+    setNextServiceDate(addMonths(new Date().toISOString().split("T")[0], 3));
     setParts(initialParts);
   };
 
