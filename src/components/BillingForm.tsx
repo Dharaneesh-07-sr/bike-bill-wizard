@@ -355,7 +355,7 @@ const BillingForm = () => {
                   onChange={(e) => setNextServiceDate(e.target.value)}
                   className="bg-input-bg border-input-border"
                 />
-                <p className="text-xs text-muted-foreground">Auto-set to 3 months after service date — editable.</p>
+                
               </div>
             </div>
           </CardContent>
