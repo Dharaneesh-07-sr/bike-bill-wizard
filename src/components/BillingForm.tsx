@@ -121,6 +121,7 @@ const BillingForm = () => {
   const [bikeName, setBikeName] = useState("");
   const [bikeNumber, setBikeNumber] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [nextServiceDate, setNextServiceDate] = useState(() => addMonths(new Date().toISOString().split("T")[0], 3));
   const [parts, setParts] = useState<PartItem[]>(initialParts);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
