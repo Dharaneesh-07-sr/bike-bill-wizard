@@ -8,6 +8,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
+import ReminderPoster from "@/components/ReminderPoster";
 
 
 interface PartItem {
@@ -136,6 +137,7 @@ const BillingForm = () => {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [partsSearch, setPartsSearch] = useState("");
   const [mechanicsOpen, setMechanicsOpen] = useState(false);
+  const [posterOpen, setPosterOpen] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -509,6 +511,13 @@ const BillingForm = () => {
                 >
                   🖨️ Print Bill
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setPosterOpen(true)}
+                  className="border-accent text-accent hover:bg-accent hover:text-accent-foreground btn-hover-glow"
+                >
+                  🔔 Reminder Poster
+                </Button>
               </div>
               <Separator className="sm:hidden w-full" />
               <div className="flex items-center gap-4">
@@ -566,6 +575,13 @@ const BillingForm = () => {
             <p style={{ fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px' }}>THANKS FOR CHOOSING US...!</p>
           </div>
         </div>
+
+        {/* Service Reminder Poster Dialog */}
+        <ReminderPoster
+          open={posterOpen}
+          onOpenChange={setPosterOpen}
+          data={{ customerName, bikeName, bikeNumber, nextServiceDate }}
+        />
 
         {/* Footer */}
         <div className="text-center mt-8 text-muted-foreground text-sm animate-slide-up-delay-3 no-print">
