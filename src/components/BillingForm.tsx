@@ -8,6 +8,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
+import ReminderPoster from "@/components/ReminderPoster";
 
 
 interface PartItem {
@@ -136,6 +137,7 @@ const BillingForm = () => {
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [partsSearch, setPartsSearch] = useState("");
   const [mechanicsOpen, setMechanicsOpen] = useState(false);
+  const [posterOpen, setPosterOpen] = useState(false);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
