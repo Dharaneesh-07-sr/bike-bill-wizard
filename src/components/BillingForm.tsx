@@ -336,9 +336,26 @@ const BillingForm = () => {
                   id="date"
                   type="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                    setNextServiceDate(addMonths(e.target.value, 3));
+                  }}
                   className="bg-input-bg border-input-border"
                 />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="nextServiceDate" className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  Next Service Date
+                </Label>
+                <Input
+                  id="nextServiceDate"
+                  type="date"
+                  value={nextServiceDate}
+                  onChange={(e) => setNextServiceDate(e.target.value)}
+                  className="bg-input-bg border-input-border"
+                />
+                <p className="text-xs text-muted-foreground">Auto-set to 3 months after service date — editable.</p>
               </div>
             </div>
           </CardContent>
