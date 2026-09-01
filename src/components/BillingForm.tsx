@@ -116,6 +116,15 @@ const initialParts: PartItem[] = [
   { id: "wiring_kit", label: "WIRING KIT", price: 0, quantity: 0 },
 ];
 
+const addMonths = (dateStr: string, months: number) => {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return "";
+  const day = d.getDate();
+  d.setMonth(d.getMonth() + months);
+  if (d.getDate() < day) d.setDate(0); // handle month-end rollover
+  return d.toISOString().split("T")[0];
+};
+
 const BillingForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [bikeName, setBikeName] = useState("");
