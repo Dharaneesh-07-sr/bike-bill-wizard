@@ -102,6 +102,7 @@ const initialParts: PartItem[] = [
   { id: "sli_cleaning", label: "SLI CLEANING", price: 0, quantity: 0 },
   { id: "sli_gas_cut", label: "SLI GAS CUT", price: 0, quantity: 0 },
   { id: "spark_plug", label: "SPARK PLUG", price: 0, quantity: 0 },
+  { id: "speed_meter", label: "SPEED METER", price: 0, quantity: 0 },
   { id: "sup_cap", label: "SUP CAP", price: 0, quantity: 0 },
   { id: "switch", label: "SWITCH", price: 0, quantity: 0 },
   { id: "tank_cover", label: "TANK COVER", price: 0, quantity: 0 },
@@ -116,6 +117,7 @@ const initialParts: PartItem[] = [
   { id: "water_wash", label: "WATER WASH", price: 0, quantity: 0 },
   { id: "weilding", label: "WEILDING", price: 0, quantity: 0 },
   { id: "wet_rubber", label: "WET RUBBER", price: 0, quantity: 0 },
+  { id: "wheel_pin", label: "WHEEL PIN", price: 0, quantity: 0 },
   { id: "wiring_kit", label: "WIRING KIT", price: 0, quantity: 0 },
 ];
 
