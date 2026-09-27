@@ -1,0 +1,4 @@
+- [ ] Enable Lovable Cloud for persistent customer history and PDF storage
+- [ ] Add Bike Service History UI, search, upload, matching, manual assignment, view, and download
+- [ ] Seed the provided PDF bills without modifying their contents
+- [ ] Validate the existing billing flow and the new history flow
