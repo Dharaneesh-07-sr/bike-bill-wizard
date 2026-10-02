@@ -1,4 +1,5 @@
-- [ ] Enable Lovable Cloud for persistent customer history and PDF storage
-- [ ] Add Bike Service History UI, search, upload, matching, manual assignment, view, and download
-- [ ] Seed the provided PDF bills without modifying their contents
-- [ ] Validate the existing billing flow and the new history flow
+- [x] Enable Lovable Cloud for persistent customer history and PDF storage
+- [x] Add Bike Service History UI, search, upload, matching, manual assignment, view, and download
+- [x] Seed the provided PDF bills without modifying their contents (5 PDFs seeded: ALEX ×2, BANUMATHI, BASKAR, BASKER)
+- [x] Validate the existing billing flow and the new history flow
+- [ ] Upload the remaining old bills — user provided 5 of the stated 30 PDFs; rest can be added via "Upload Existing Bills"

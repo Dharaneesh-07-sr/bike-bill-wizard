@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
 import ReminderPoster from "@/components/ReminderPoster";
+import BikeServiceHistory from "@/components/BikeServiceHistory";
 
 
 interface PartItem {
@@ -51,7 +52,9 @@ const initialParts: PartItem[] = [
   { id: "foot_rest", label: "FOOT REST", price: 0, quantity: 0 },
   { id: "fork_bend", label: "FORK BEND", price: 0, quantity: 0 },
   { id: "fork_bush", label: "FORK BUSH", price: 0, quantity: 0 },
+  { id: "fork_conekit", label: "FORK CONEKIT", price: 0, quantity: 0 },
   { id: "fork_rubber", label: "FORK RUBBER", price: 0, quantity: 0 },
+  { id: "fork_spring", label: "FORK SPRING", price: 0, quantity: 0 },
   { id: "fr_mat", label: "FR MAT", price: 0, quantity: 0 },
   { id: "fr_tyre", label: "FR TYRE", price: 0, quantity: 0 },
   { id: "gear_oil", label: "GEAR OIL", price: 0, quantity: 0 },
@@ -176,6 +179,8 @@ const BillingForm = () => {
     window.print();
   };
 
+  const [historyOpen, setHistoryOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     toast.success("Logged out successfully");
@@ -246,6 +251,15 @@ const BillingForm = () => {
               </div>
             </SheetContent>
           </Sheet>
+          {/* Bike Service History Button */}
+          <Button
+            variant="outline"
+            onClick={() => setHistoryOpen(true)}
+            className="flex items-center gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
+          >
+            🏍️
+            Bike Service History
+          </Button>
           {/* Logout Button */}
           <Button
             variant="outline"
@@ -256,6 +270,8 @@ const BillingForm = () => {
             Logout
           </Button>
         </div>
+
+        <BikeServiceHistory open={historyOpen} onOpenChange={setHistoryOpen} />
 
         {/* Header */}
         {/* Divine Blessing */}

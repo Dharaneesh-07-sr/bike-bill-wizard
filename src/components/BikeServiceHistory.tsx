@@ -128,7 +128,7 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
 
   const findCustomerForFile = (fileName: string) => {
     const normalized = normalizeOwnerName(fileName);
-    return customers.find((customer) => customer.owner_name_normalized === normalized)?.id ?? "";
+    return customers.find((customer) => normalizeOwnerName(customer.owner_name) === normalized)?.id ?? "";
   };
 
   const handleFilesSelected = (event: ChangeEvent<HTMLInputElement>) => {
