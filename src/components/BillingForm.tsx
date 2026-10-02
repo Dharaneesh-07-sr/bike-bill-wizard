@@ -179,6 +179,8 @@ const BillingForm = () => {
     window.print();
   };
 
+  const [historyOpen, setHistoryOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     toast.success("Logged out successfully");
