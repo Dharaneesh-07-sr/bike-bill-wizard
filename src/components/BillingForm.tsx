@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
 import ReminderPoster from "@/components/ReminderPoster";
+import BikeServiceHistory from "@/components/BikeServiceHistory";
 
 
 interface PartItem {
