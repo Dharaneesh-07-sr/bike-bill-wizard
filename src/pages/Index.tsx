@@ -1,7 +1,7 @@
-import BillingForm from "@/components/BillingForm";
+import ShopLoginGate from "@/components/ShopLoginGate";
 
 const Index = () => {
-  return <BillingForm />;
+  return <ShopLoginGate />;
 };
 
 export default Index;

@@ -358,6 +358,18 @@
   animation: title-shine 3.5s linear infinite, title-glow 2.8s ease-in-out infinite;
 }
 
+.shop-login-art {
+  background-image: linear-gradient(
+      180deg,
+      hsl(var(--background) / 0.04) 18%,
+      hsl(var(--background) / 0.28) 62%,
+      hsl(var(--background) / 0.96) 100%
+    ),
+    url("/src/assets/bike-shop-bg.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
 /* Print styles */
 @media print {
   @page {
