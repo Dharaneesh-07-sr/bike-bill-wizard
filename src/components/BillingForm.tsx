@@ -8,6 +8,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check, Search, X, Award, Phone, Briefcase } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import ReminderPoster from "@/components/ReminderPoster";
 import BikeServiceHistory from "@/components/BikeServiceHistory";
 
@@ -182,9 +183,13 @@ const BillingForm = () => {
   const [historyOpen, setHistoryOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    toast.success("Logged out successfully");
-    window.location.reload();
+    void supabase.auth.signOut().then(({ error }) => {
+      if (error) {
+        toast.error("Unable to log out. Please try again.");
+        return;
+      }
+      toast.success("Logged out successfully");
+    });
   };
 
   return (
