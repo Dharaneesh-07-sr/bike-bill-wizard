@@ -1,0 +1,1 @@
+ALTER TABLE public.service_history_bills ADD COLUMN price numeric(12,2);
