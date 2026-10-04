@@ -21,6 +21,7 @@ export type Database = {
           file_name: string
           file_size: number | null
           id: string
+          price: number | null
           service_date: string | null
           storage_path: string
         }
@@ -30,6 +31,7 @@ export type Database = {
           file_name: string
           file_size?: number | null
           id?: string
+          price?: number | null
           service_date?: string | null
           storage_path: string
         }
@@ -39,6 +41,7 @@ export type Database = {
           file_name?: string
           file_size?: number | null
           id?: string
+          price?: number | null
           service_date?: string | null
           storage_path?: string
         }
