@@ -90,7 +90,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [bills, setBills] = useState<Bill[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
   const [pendingUploads, setPendingUploads] = useState<PendingUpload[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -125,18 +124,17 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
     if (open) void loadHistory();
   }, [loadHistory, open]);
 
-  const filteredCustomers = useMemo(() => {
+  const filteredBills = useMemo(() => {
     const term = search.trim().toLowerCase();
-    if (!term) return customers;
-    return customers.filter((customer) =>
-      [customer.owner_name, customer.bike_model, customer.bike_number]
+    return bills
+      .filter((bill) => {
+        const customer = customers.find((item) => item.id === bill.customer_id);
+        return [bill.file_name, customer?.owner_name, customer?.bike_model, customer?.bike_number]
         .filter(Boolean)
-        .some((value) => value?.toLowerCase().includes(term)),
-    );
-  }, [customers, search]);
-
-  const selectedCustomer = customers.find((customer) => customer.id === selectedCustomerId) ?? null;
-  const selectedBills = bills.filter((bill) => bill.customer_id === selectedCustomerId);
+          .some((value) => value?.toLowerCase().includes(term));
+      })
+      .sort((a, b) => a.file_name.localeCompare(b.file_name, undefined, { sensitivity: "base" }));
+  }, [bills, customers, search]);
 
   const findCustomerForFile = (fileName: string) => {
     const normalized = normalizeOwnerName(fileName);
@@ -307,73 +305,62 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
                   )}
                 </div>
               </div>
-              <ScrollArea className="min-h-0 flex-1">
-                <div className="space-y-2 p-4">
-                  {isLoading ? (
-                    <p className="p-4 text-center text-sm text-muted-foreground">Loading customers…</p>
-                  ) : filteredCustomers.length === 0 ? (
-                    <div className="p-5 text-center text-sm text-muted-foreground">
-                      <UserRound className="mx-auto mb-2 h-8 w-8 opacity-50" />
-                      No customers found
-                    </div>
-                  ) : (
-                    filteredCustomers.map((customer) => {
-                      const count = bills.filter((bill) => bill.customer_id === customer.id).length;
+              <div className="min-h-0 flex-1 overflow-y-auto p-4">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h3 className="text-lg font-semibold">Previous Service Bills (A–Z)</h3>
+                  <Badge variant="outline">{filteredBills.length} saved</Badge>
+                </div>
+                {isLoading ? (
+                  <p className="p-4 text-center text-sm text-muted-foreground">Loading bills…</p>
+                ) : filteredBills.length === 0 ? (
+                  <div className="rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+                    <FileArchive className="mx-auto mb-2 h-8 w-8 opacity-50" />
+                    No service bills found
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {filteredBills.map((bill) => {
+                      const customer = customers.find((item) => item.id === bill.customer_id);
                       return (
-                        <button
-                          key={customer.id}
-                          type="button"
-                          onClick={() => setSelectedCustomerId(customer.id)}
-                          className={`w-full rounded-lg border p-3 text-left transition-colors ${selectedCustomerId === customer.id ? "border-primary bg-primary/10" : "border-border bg-background hover:bg-muted/60"}`}
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <p className="truncate font-semibold text-foreground">{customer.owner_name}</p>
-                              <p className="mt-1 truncate text-xs text-muted-foreground">{customer.bike_model || "Bike model not recorded"}</p>
-                              {customer.bike_number && <p className="mt-1 text-xs text-muted-foreground">{customer.bike_number}</p>}
+                        <Card key={bill.id} className="border-border shadow-none">
+                          <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex min-w-0 items-start gap-3">
+                              <div className="rounded-lg bg-primary/10 p-2"><FileArchive className="h-5 w-5 text-primary" /></div>
+                              <div className="min-w-0">
+                                <p className="truncate font-medium">{bill.file_name}</p>
+                                <p className="mt-1 truncate text-xs text-muted-foreground">
+                                  {customer?.owner_name || "Owner not recorded"} · {customer?.bike_model || "Bike model not recorded"}
+                                  {customer?.bike_number ? ` · ${customer.bike_number}` : ""}
+                                </p>
+                                {editingBillId === bill.id ? (
+                                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                                    <Input type="date" value={dateDraft} onChange={(event) => setDateDraft(event.target.value)} className="h-8 w-40" aria-label={`Service date for ${bill.file_name}`} />
+                                    <Input type="number" min="0" step="0.01" value={priceDraft} onChange={(event) => setPriceDraft(event.target.value)} className="h-8 w-28" placeholder="Price ₹" aria-label={`Price for ${bill.file_name}`} />
+                                    <Button size="sm" className="h-8 px-3 text-xs" onClick={() => void saveBillEdit(bill)} disabled={isSavingBill}>Save</Button>
+                                    <Button size="sm" variant="ghost" className="h-8 px-3 text-xs" onClick={() => setEditingBillId(null)}>Cancel</Button>
+                                  </div>
+                                ) : (
+                                  <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                                    <span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{formatDate(bill.service_date)}</span>
+                                    <span>•</span>
+                                    {bill.price === null ? <span>Price not set</span> : <span className="font-semibold text-foreground">{formatPrice(bill.price)}</span>}
+                                    <button type="button" onClick={() => startBillEdit(bill)} className="rounded p-0.5 hover:bg-muted" aria-label={`Edit date and price for ${bill.file_name}`}><Pencil className="h-3.5 w-3.5" /></button>
+                                    <span>•</span><span>{formatFileSize(bill.file_size)}</span>
+                                  </p>
+                                )}
+                              </div>
                             </div>
-                            <Badge variant="secondary" className="shrink-0">{count} {count === 1 ? "bill" : "bills"}</Badge>
-                          </div>
-                        </button>
+                            <div className="flex shrink-0 gap-2">
+                              <Button variant="outline" size="sm" onClick={() => void openBill(bill)}><FileText className="mr-2 h-4 w-4" />View Bill</Button>
+                              <Button variant="outline" size="sm" onClick={() => void openBill(bill, true)}><Download className="mr-2 h-4 w-4" />Download</Button>
+                            </div>
+                          </CardContent>
+                        </Card>
                       );
-                    })
-                  )}
-                </div>
-              </ScrollArea>
-            </section>
-
-            <section className="min-h-0 overflow-y-auto p-5">
-              {selectedCustomer ? (
-                <div className="space-y-5">
-                  <div className="border-b border-border pb-5">
-                    <p className="text-sm font-medium uppercase tracking-[0.12em] text-primary">Customer profile</p>
-                    <h3 className="mt-1 text-3xl font-bold text-foreground">{selectedCustomer.owner_name}</h3>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-lg bg-muted/60 p-3"><p className="text-xs text-muted-foreground">Bike name / model</p><p className="mt-1 flex items-center gap-2 font-medium"><Bike className="h-4 w-4 text-primary" />{selectedCustomer.bike_model || "Not recorded"}</p></div>
-                      <div className="rounded-lg bg-muted/60 p-3"><p className="text-xs text-muted-foreground">Bike number</p><p className="mt-1 flex items-center gap-2 font-medium"><FileText className="h-4 w-4 text-primary" />{selectedCustomer.bike_number || "Not recorded"}</p></div>
-                    </div>
+                    })}
                   </div>
-                  <div>
-                    <div className="mb-3 flex items-center justify-between gap-3"><h4 className="text-lg font-semibold">Previous Service Bills (A–Z)</h4><Badge variant="outline">{selectedBills.length} saved</Badge></div>
-                    {selectedBills.length === 0 ? (
-                      <div className="rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">No previous bills saved for this customer.</div>
-                    ) : (
-                      <div className="space-y-3">
-                        {selectedBills.map((bill) => (
-                          <Card key={bill.id} className="border-border shadow-none">
-                            <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-                              <div className="flex min-w-0 items-center gap-3"><div className="rounded-lg bg-primary/10 p-2"><FileArchive className="h-5 w-5 text-primary" /></div><div className="min-w-0"><p className="truncate font-medium">{bill.file_name}</p>{editingBillId === bill.id ? (<div className="mt-2 flex flex-wrap items-center gap-2"><Input type="date" value={dateDraft} onChange={(event) => setDateDraft(event.target.value)} className="h-8 w-40" aria-label={`Service date for ${bill.file_name}`} /><Input type="number" min="0" step="0.01" value={priceDraft} onChange={(event) => setPriceDraft(event.target.value)} className="h-8 w-28" placeholder="Price ₹" aria-label={`Price for ${bill.file_name}`} /><Button size="sm" className="h-8 px-3 text-xs" onClick={() => void saveBillEdit(bill)} disabled={isSavingBill}>Save</Button><Button size="sm" variant="ghost" className="h-8 px-3 text-xs" onClick={() => setEditingBillId(null)}>Cancel</Button></div>) : (<p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground"><span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{formatDate(bill.service_date)}</span><span>•</span>{bill.price === null ? <span>Price not set</span> : <span className="font-semibold text-foreground">{formatPrice(bill.price)}</span>}<button type="button" onClick={() => startBillEdit(bill)} className="rounded p-0.5 hover:bg-muted" aria-label={`Edit date and price for ${bill.file_name}`}><Pencil className="h-3.5 w-3.5" /></button><span>•</span><span>{formatFileSize(bill.file_size)}</span></p>)}</div></div>
-                              <div className="flex shrink-0 gap-2"><Button variant="outline" size="sm" onClick={() => void openBill(bill)}><FileText className="mr-2 h-4 w-4" />View Bill</Button><Button variant="outline" size="sm" onClick={() => void openBill(bill, true)}><Download className="mr-2 h-4 w-4" />Download</Button></div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="flex h-full min-h-[320px] flex-col items-center justify-center text-center text-muted-foreground"><span className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-3xl">🏍️</span><h3 className="text-lg font-semibold text-foreground">Select a customer</h3><p className="mt-1 max-w-sm text-sm">Choose an owner from the list to view their bike details and previous bills.</p></div>
-              )}
+                )}
+              </div>
             </section>
           </div>
 
