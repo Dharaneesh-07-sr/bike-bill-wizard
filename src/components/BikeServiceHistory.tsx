@@ -216,7 +216,7 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.5fr)]">
+          <div className="flex min-h-0 flex-1 flex-col">
             <section className="flex min-h-0 flex-col border-b border-border lg:border-b-0 lg:border-r">
               <div className="space-y-3 border-b border-border p-5">
                 <Button className="w-full gap-2" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
