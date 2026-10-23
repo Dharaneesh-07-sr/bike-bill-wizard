@@ -217,7 +217,8 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
           </DialogHeader>
 
           <div className="flex min-h-0 flex-1 flex-col">
-            <section className="flex min-h-0 flex-col border-b border-border lg:border-b-0 lg:border-r">
+            <section className="flex min-h-0 flex-1 flex-col">
+
               <div className="space-y-3 border-b border-border p-5">
                 <Button className="w-full gap-2" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
                   <Upload className="h-4 w-4" />
