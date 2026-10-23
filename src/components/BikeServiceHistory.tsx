@@ -1,24 +1,19 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import {
-  Bike,
-  CalendarDays,
   Download,
   FileArchive,
   FileText,
-  Pencil,
   Search,
   Upload,
-  UserRound,
   X,
 } from "lucide-react";
 
@@ -34,10 +29,8 @@ type Bill = {
   customer_id: string;
   file_name: string;
   storage_path: string;
-  service_date: string | null;
   created_at: string;
   file_size: number | null;
-  price: number | null;
 };
 
 type PendingUpload = {
@@ -45,7 +38,6 @@ type PendingUpload = {
   file: File;
   ownerName: string;
   customerId: string;
-  price: string;
 };
 
 type BikeServiceHistoryProps = {
@@ -67,22 +59,9 @@ const displayOwnerName = (fileName: string) =>
     .replace(/[_-]+/g, " ")
     .trim();
 
-const formatDate = (value: string | null) => {
-  if (!value) return "Date not recorded";
-  const parsed = new Date(`${value}T00:00:00`);
-  return Number.isNaN(parsed.getTime())
-    ? value
-    : parsed.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
-};
-
 const formatFileSize = (value: number | null) => {
   if (!value) return "PDF bill";
   return `${(value / 1024).toFixed(value > 1024 * 1024 ? 1 : 0)} ${value > 1024 * 1024 ? "MB" : "KB"}`;
-};
-
-const formatPrice = (value: number | null) => {
-  if (value === null || value === undefined) return null;
-  return `₹${value.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 };
 
 const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => {
@@ -93,10 +72,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
   const [pendingUploads, setPendingUploads] = useState<PendingUpload[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [editingBillId, setEditingBillId] = useState<string | null>(null);
-  const [dateDraft, setDateDraft] = useState("");
-  const [priceDraft, setPriceDraft] = useState("");
-  const [isSavingBill, setIsSavingBill] = useState(false);
 
   const loadHistory = useCallback(async () => {
     setIsLoading(true);
@@ -107,7 +82,7 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
         .order("owner_name"),
       supabase
         .from("service_history_bills")
-        .select("id, customer_id, file_name, storage_path, service_date, price, created_at, file_size")
+        .select("id, customer_id, file_name, storage_path, created_at, file_size")
         .order("file_name", { ascending: true }),
     ]);
 
@@ -153,7 +128,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
         file,
         ownerName: displayOwnerName(file.name),
         customerId: findCustomerForFile(file.name),
-        price: "",
       })),
     );
     event.target.value = "";
@@ -162,12 +136,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
   const updatePendingCustomer = (pendingId: string, customerId: string) => {
     setPendingUploads((current) =>
       current.map((pending) => (pending.id === pendingId ? { ...pending, customerId } : pending)),
-    );
-  };
-
-  const updatePendingPrice = (pendingId: string, price: string) => {
-    setPendingUploads((current) =>
-      current.map((pending) => (pending.id === pendingId ? { ...pending, price } : pending)),
     );
   };
 
@@ -199,7 +167,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
           file_name: pending.file.name,
           storage_path: storagePath,
           file_size: pending.file.size,
-          price: pending.price.trim() === "" || !Number.isFinite(Number(pending.price)) ? null : Number(pending.price),
         });
         if (billError) throw billError;
         uploadedCount += 1;
@@ -214,38 +181,6 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
     } finally {
       setIsUploading(false);
     }
-  };
-
-  const startBillEdit = (bill: Bill) => {
-    setEditingBillId(bill.id);
-    setDateDraft(bill.service_date ?? "");
-    setPriceDraft(bill.price === null ? "" : String(bill.price));
-  };
-
-  const saveBillEdit = async (bill: Bill) => {
-    const trimmedPrice = priceDraft.trim();
-    const parsedPrice = trimmedPrice === "" ? null : Number(trimmedPrice);
-    if (parsedPrice !== null && (!Number.isFinite(parsedPrice) || parsedPrice < 0)) {
-      toast.error("Enter a valid price");
-      return;
-    }
-    setIsSavingBill(true);
-    const { error } = await supabase
-      .from("service_history_bills")
-      .update({ service_date: dateDraft === "" ? null : dateDraft, price: parsedPrice })
-      .eq("id", bill.id);
-    setIsSavingBill(false);
-    if (error) {
-      toast.error("Could not save the bill details");
-      return;
-    }
-    setBills((current) =>
-      current.map((item) =>
-        item.id === bill.id ? { ...item, service_date: dateDraft === "" ? null : dateDraft, price: parsedPrice } : item,
-      ),
-    );
-    setEditingBillId(null);
-    toast.success("Bill details saved");
   };
 
   const openBill = async (bill: Bill, download = false) => {
@@ -281,8 +216,9 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.5fr)]">
-            <section className="flex min-h-0 flex-col border-b border-border lg:border-b-0 lg:border-r">
+          <div className="flex min-h-0 flex-1 flex-col">
+            <section className="flex min-h-0 flex-1 flex-col">
+
               <div className="space-y-3 border-b border-border p-5">
                 <Button className="w-full gap-2" onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
                   <Upload className="h-4 w-4" />
@@ -327,27 +263,12 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
                             <div className="flex min-w-0 items-start gap-3">
                               <div className="rounded-lg bg-primary/10 p-2"><FileArchive className="h-5 w-5 text-primary" /></div>
                               <div className="min-w-0">
-                                <p className="truncate font-medium">{bill.file_name}</p>
-                                <p className="mt-1 truncate text-xs text-muted-foreground">
+                                <p className="break-words font-medium">{bill.file_name}</p>
+                                <p className="mt-1 break-words text-xs text-muted-foreground">
                                   {customer?.owner_name || "Owner not recorded"} · {customer?.bike_model || "Bike model not recorded"}
                                   {customer?.bike_number ? ` · ${customer.bike_number}` : ""}
                                 </p>
-                                {editingBillId === bill.id ? (
-                                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                                    <Input type="date" value={dateDraft} onChange={(event) => setDateDraft(event.target.value)} className="h-8 w-40" aria-label={`Service date for ${bill.file_name}`} />
-                                    <Input type="number" min="0" step="0.01" value={priceDraft} onChange={(event) => setPriceDraft(event.target.value)} className="h-8 w-28" placeholder="Price ₹" aria-label={`Price for ${bill.file_name}`} />
-                                    <Button size="sm" className="h-8 px-3 text-xs" onClick={() => void saveBillEdit(bill)} disabled={isSavingBill}>Save</Button>
-                                    <Button size="sm" variant="ghost" className="h-8 px-3 text-xs" onClick={() => setEditingBillId(null)}>Cancel</Button>
-                                  </div>
-                                ) : (
-                                  <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                                    <span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{formatDate(bill.service_date)}</span>
-                                    <span>•</span>
-                                    {bill.price === null ? <span>Price not set</span> : <span className="font-semibold text-foreground">{formatPrice(bill.price)}</span>}
-                                    <button type="button" onClick={() => startBillEdit(bill)} className="rounded p-0.5 hover:bg-muted" aria-label={`Edit date and price for ${bill.file_name}`}><Pencil className="h-3.5 w-3.5" /></button>
-                                    <span>•</span><span>{formatFileSize(bill.file_size)}</span>
-                                  </p>
-                                )}
+                                <p className="mt-1 text-xs text-muted-foreground">{formatFileSize(bill.file_size)}</p>
                               </div>
                             </div>
                             <div className="flex shrink-0 gap-2">
@@ -369,10 +290,9 @@ const BikeServiceHistory = ({ open, onOpenChange }: BikeServiceHistoryProps) => 
               <div className="mb-3 flex items-center justify-between gap-3"><div><h3 className="font-semibold">Review uploaded bills</h3><p className="text-sm text-muted-foreground">Owner names were read from the PDF filenames. Assign any unmatched files before uploading.</p></div><Button size="sm" onClick={() => void uploadBills()} disabled={isUploading || pendingUploads.some((pending) => !pending.customerId)}>{isUploading ? "Uploading…" : `Upload ${pendingUploads.length} ${pendingUploads.length === 1 ? "bill" : "bills"}`}</Button></div>
               <div className="space-y-2">
                 {pendingUploads.map((pending) => (
-                  <div key={pending.id} className="grid gap-2 rounded-lg border border-border bg-background p-3 md:grid-cols-[minmax(0,1fr)_minmax(200px,0.7fr)_minmax(140px,0.5fr)_auto] md:items-center">
-                    <div className="min-w-0"><p className="truncate text-sm font-medium">{pending.file.name}</p><p className="text-xs text-muted-foreground">Owner match: {pending.ownerName}</p></div>
+                  <div key={pending.id} className="grid gap-2 rounded-lg border border-border bg-background p-3 md:grid-cols-[minmax(0,1fr)_minmax(200px,0.7fr)_auto] md:items-center">
+                    <div className="min-w-0"><p className="break-words text-sm font-medium">{pending.file.name}</p><p className="text-xs text-muted-foreground">Owner match: {pending.ownerName}</p></div>
                     <div className="space-y-1">{pending.customerId ? <Label className="text-xs text-muted-foreground">Matched customer</Label> : <p className="text-xs font-medium text-destructive">Customer not found – Please select the customer manually</p>}<Select value={pending.customerId} onValueChange={(value) => updatePendingCustomer(pending.id, value)}><SelectTrigger className="h-9"><SelectValue placeholder="Select customer" /></SelectTrigger><SelectContent>{customers.map((customer) => <SelectItem key={customer.id} value={customer.id}>{customer.owner_name}</SelectItem>)}</SelectContent></Select></div>
-                    <div className="space-y-1"><Label className="text-xs text-muted-foreground">Price ₹ (optional)</Label><Input type="number" min="0" step="0.01" value={pending.price} onChange={(event) => updatePendingPrice(pending.id, event.target.value)} placeholder="e.g. 1250" className="h-9" aria-label={`Price for ${pending.file.name}`} /></div>
                     <Button type="button" variant="ghost" size="icon" onClick={() => removePendingFile(pending.id)} aria-label={`Remove ${pending.file.name}`}><X className="h-4 w-4" /></Button>
                   </div>
                 ))}
