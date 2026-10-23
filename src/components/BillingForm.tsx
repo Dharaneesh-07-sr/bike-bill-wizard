@@ -205,8 +205,10 @@ const BillingForm = () => {
   return (
     <div className="min-h-screen bg-background bg-pattern py-8 px-4">
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Top bar - Mechanics & Logout */}
-        <div className="flex justify-between items-center mb-4 animate-slide-up">
+        {/* Top bar - Mechanics & Bike Bills stacked, Logout */}
+        <div className="flex justify-between items-start mb-4 animate-slide-up">
+          <div className="flex flex-col items-start gap-2">
+
           {/* Mechanics Button */}
           <Sheet open={mechanicsOpen} onOpenChange={setMechanicsOpen}>
             <SheetTrigger asChild>
@@ -266,16 +268,18 @@ const BillingForm = () => {
               </div>
             </SheetContent>
           </Sheet>
-          {/* Bike Service History Button */}
+          {/* Bike Bills Button */}
           <Button
             variant="outline"
             onClick={() => setHistoryOpen(true)}
             className="flex items-center gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
           >
             🏍️
-            Bike Service History
+            BIKE BILLS
           </Button>
+          </div>
           {/* Logout Button */}
+
           <Button
             variant="outline"
             onClick={handleLogout}
