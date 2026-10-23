@@ -34,10 +34,8 @@ type Bill = {
   customer_id: string;
   file_name: string;
   storage_path: string;
-  service_date: string | null;
   created_at: string;
   file_size: number | null;
-  price: number | null;
 };
 
 type PendingUpload = {
