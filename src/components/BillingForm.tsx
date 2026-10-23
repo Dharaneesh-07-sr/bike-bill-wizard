@@ -205,8 +205,10 @@ const BillingForm = () => {
   return (
     <div className="min-h-screen bg-background bg-pattern py-8 px-4">
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Top bar - Mechanics & Logout */}
-        <div className="flex justify-between items-center mb-4 animate-slide-up">
+        {/* Top bar - Mechanics & Bike Bills stacked, Logout */}
+        <div className="flex justify-between items-start mb-4 animate-slide-up">
+          <div className="flex flex-col items-start gap-2">
+
           {/* Mechanics Button */}
           <Sheet open={mechanicsOpen} onOpenChange={setMechanicsOpen}>
             <SheetTrigger asChild>
