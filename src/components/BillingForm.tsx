@@ -268,16 +268,18 @@ const BillingForm = () => {
               </div>
             </SheetContent>
           </Sheet>
-          {/* Bike Service History Button */}
+          {/* Bike Bills Button */}
           <Button
             variant="outline"
             onClick={() => setHistoryOpen(true)}
             className="flex items-center gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground btn-hover-glow"
           >
             🏍️
-            Bike Service History
+            BIKE BILLS
           </Button>
+          </div>
           {/* Logout Button */}
+
           <Button
             variant="outline"
             onClick={handleLogout}
