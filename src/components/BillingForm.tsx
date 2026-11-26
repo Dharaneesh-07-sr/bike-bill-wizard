@@ -82,6 +82,7 @@ const initialParts: PartItem[] = [
   { id: "ind_switch", label: "IND SWITCH", price: 0, quantity: 0 },
   { id: "injector_bush", label: "INJECTOR BUSH", price: 0, quantity: 0 },
   { id: "injector_labour", label: "INJECTOR LABOUR", price: 0, quantity: 0 },
+  { id: "key", label: "KEY", price: 0, quantity: 0 },
   { id: "kicker_bush", label: "KICKER BUSH", price: 0, quantity: 0 },
   { id: "kicker_lock", label: "KICKER LOCK", price: 0, quantity: 0 },
   { id: "kicker_wheel", label: "KICKER WHEEL", price: 0, quantity: 0 },
