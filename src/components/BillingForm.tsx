@@ -31,6 +31,7 @@ const initialParts: PartItem[] = [
   { id: "bolt_nuts", label: "BOLT & NUTS", price: 0, quantity: 0 },
   { id: "brake_shoe_fr", label: "BRAKE SHOE FR", price: 0, quantity: 0 },
   { id: "brake_shoe_rr", label: "BRAKE SHOE RR", price: 0, quantity: 0 },
+  { id: "bumper", label: "BUMPER", price: 0, quantity: 0 },
   { id: "capater_bush", label: "CAPATER BUSH", price: 0, quantity: 0 },
   { id: "centre_stand", label: "CENTRE STAND", price: 0, quantity: 0 },
   { id: "chain_bolt", label: "CHAIN BOLT", price: 0, quantity: 0 },
@@ -105,6 +106,7 @@ const initialParts: PartItem[] = [
   { id: "puncture", label: "PUNCTURE", price: 0, quantity: 0 },
   { id: "read_valve", label: "READ VALVE", price: 0, quantity: 0 },
   { id: "rr_bearing", label: "RR BEARING", price: 0, quantity: 0 },
+  { id: "rr_footrest", label: "RR FOOTREST", price: 0, quantity: 0 },
   { id: "rr_mat", label: "RR MAT", price: 0, quantity: 0 },
   { id: "rr_oilseal", label: "RR OILSEAL", price: 0, quantity: 0 },
   { id: "rr_packing", label: "RR PACKING", price: 0, quantity: 0 },
@@ -135,6 +137,7 @@ const initialParts: PartItem[] = [
   { id: "water_wash", label: "WATER WASH", price: 0, quantity: 0 },
   { id: "weilding", label: "WEILDING", price: 0, quantity: 0 },
   { id: "wet_rubber", label: "WET RUBBER", price: 0, quantity: 0 },
+  { id: "wheel_kotam", label: "WHEEL KOTAM", price: 0, quantity: 0 },
   { id: "wheel_pin", label: "WHEEL PIN", price: 0, quantity: 0 },
   { id: "wiring_kit", label: "WIRING KIT", price: 0, quantity: 0 },
 ];
